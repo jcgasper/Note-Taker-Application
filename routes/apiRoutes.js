@@ -59,24 +59,23 @@ app.post(path, function(req,res) {
         let deleteNote = req.params.id;
         
     
-        fs.readFile('./db/db.json', (err, data) => {
+        fs.readFile(filePath, (err, data) => {
           if (err) 
           throw err;
     
           
           dbData = JSON.parse(data);
           
-          // 
-          
+          // loops thru dbData's ID's and finds matching ID of note to be deleted
           for (let i = 0; i < dbData.length; i++) {
             if (dbData[i].id === Number(deleteNote)) {
               dbData.splice([i], 1);
             }
           }
           console.log(dbData);
-          stringData = JSON.stringify(dbData);
+          inputData = JSON.stringify(dbData);
     
-          fs.writeFile('./db/db.json', stringData, (err, data) => {
+          fs.writeFile(filePath, inputData, (err, data) => {
             if (err) 
             throw err;
           });
